@@ -1186,6 +1186,7 @@ class OAuth2ResourceController(MinimalController):
         c.have_mod_messages = bool(c.user.modmsgtime)
 
         c.user_special_distinguish = c.user.special_distinguish()
+        hooks.get_hook('plugins.set_up_user_context').call()
 
 
 class OAuth2OnlyController(OAuth2ResourceController):
