@@ -264,6 +264,22 @@ r.utils = {
             field: field,
         }
     },
+	
+    /*
+     * http://stackoverflow.com/questions/831030/how-to-get-get-request-parameters-in-javascript
+     */
+    parseQueryString: function (locationHash) {
+        var hashParams = {};
+        var parts = locationHash.split("&");
+        for (let elem of parts) {
+            var values = elem.split("=");
+            var key = elem[0];
+            var value = elem[1];
+            hashParams[key] = value;
+        });
+        
+        return hashParams;
+    },
 
     onTrident: function() {
         return 'ActiveXObject' in window;
