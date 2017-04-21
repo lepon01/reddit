@@ -268,13 +268,13 @@ r.utils = {
     /*
      * http://stackoverflow.com/questions/831030/how-to-get-get-request-parameters-in-javascript
      */
-    parseQueryString: function (locationHash) {
+    parseQueryString: function(locationHash) {
         var hashParams = {};
         var parts = locationHash.split("&");
-        for (let elem of parts) {
-            var values = elem.split("=");
-            var key = elem[0];
-            var value = elem[1];
+        for (i = 0; i < parts.length; i++) {
+            var values = parts[i].split("=");
+            var key = values[0];
+            var value = values[1];
             hashParams[key] = value;
         });
         
