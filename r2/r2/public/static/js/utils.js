@@ -276,7 +276,7 @@ r.utils = {
             var key = values[0];
             var value = values[1];
             hashParams[key] = value;
-        });
+        }
         
         return hashParams;
     },
