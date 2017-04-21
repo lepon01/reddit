@@ -253,17 +253,17 @@ r.utils = {
         }
     },
 
-    parseError: function(error) {
-        var name = error[0];
-        var message = error[1];
-        var field = error[2];
-
-        return {
-            name: name,
-            message: message,
-            field: field,
-        }
-    },
+    //parseError: function(error) {
+    //    var name = error[0];
+    //    var message = error[1];
+    //    var field = error[2];
+    //
+    //    return {
+    //        name: name,
+    //        message: message,
+    //        field: field,
+    //    }
+    //},
 
     onTrident: function() {
         return 'ActiveXObject' in window;
