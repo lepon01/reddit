@@ -1914,7 +1914,7 @@ def squelch_exceptions(fn):
     return squelched_fn
 
 
-EPOCH = datetime(1970, 1, 1, tzinfo=pytz.UTC)
+EPOCH = datetime(1970, 1, 1).replace(tzinfo=pytz.UTC)
 
 
 def epoch_timestamp(dt):
