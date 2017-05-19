@@ -791,7 +791,7 @@ class Globals(object):
             self.baseplate.add_to_context("activity_service",
                 ThriftContextFactory(activity_pool, ActivityService.Client))
 
-		self.startup_timer.intermediate("thrift")
+        self.startup_timer.intermediate("thrift")
 
         ################# PLACE
         # e.g. "redis://localhost:6379/"
