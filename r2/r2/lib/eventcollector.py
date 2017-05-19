@@ -830,7 +830,7 @@ class Event(object):
         self.truncatable_field = truncatable_field
 
         if not time:
-            time = datetime.datetime.now(pytz.UTC)
+            time = datetime.datetime.now().replace(tzinfo=pytz.UTC)
         self.timestamp = _datetime_to_millis(time)
 
         if not uuid:
