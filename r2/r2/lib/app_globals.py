@@ -35,10 +35,12 @@ import site
 import socket
 import subprocess
 import sys
+import redis
 
 from sqlalchemy import engine, event
 from baseplate import Baseplate, config as baseplate_config
 from baseplate.thrift_pool import ThriftConnectionPool
+from baseplate.context.redis import RedisContextFactory
 from baseplate.context.thrift import ThriftContextFactory
 from baseplate.server import einhorn
 
@@ -348,6 +350,14 @@ class Globals(object):
             "activity_endpoint",
             "tracing_endpoint",
         ],
+
+		ConfigValue.baseplate(baseplate_config.Optional(baseplate_config.String)): [
+			"place_redis_url",
+		],
+
+		ConfigValue.baseplate(baseplate_config.Optional(baseplate_config.Integer)): [
+			"place_redis_max_connections",
+		],
 
         ConfigValue.dict(ConfigValue.str, ConfigValue.str): [
             'emr_traffic_tags',
@@ -782,6 +792,18 @@ class Globals(object):
                 ThriftContextFactory(activity_pool, ActivityService.Client))
 
         self.startup_timer.intermediate("thrift")
+
+		################# PLACE
+		# e.g. "redis://localhost:6379/"
+		place_redis_url = self.config.get("place_redis_url")
+		if place_redis_url:
+			place_redis_pool = redis.BlockingConnectionPool.from_url(
+				place_redis_url,
+				max_connections=self.config.get("place_redis_max_connections", 1),
+				timeout=0.1,
+			)
+			self.baseplate.add_to_context("place_redis", RedisContextFactory(
+				place_redis_pool))
 
         ################# CASSANDRA
         keyspace = "reddit"
