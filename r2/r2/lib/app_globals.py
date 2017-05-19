@@ -791,19 +791,19 @@ class Globals(object):
             self.baseplate.add_to_context("activity_service",
                 ThriftContextFactory(activity_pool, ActivityService.Client))
 
-        self.startup_timer.intermediate("thrift")
+		self.startup_timer.intermediate("thrift")
 
-		################# PLACE
-		# e.g. "redis://localhost:6379/"
-		place_redis_url = self.config.get("place_redis_url")
-		if place_redis_url:
-			place_redis_pool = redis.BlockingConnectionPool.from_url(
-				place_redis_url,
-				max_connections=self.config.get("place_redis_max_connections", 1),
-				timeout=0.1,
-			)
-			self.baseplate.add_to_context("place_redis", RedisContextFactory(
-				place_redis_pool))
+        ################# PLACE
+        # e.g. "redis://localhost:6379/"
+        place_redis_url = self.config.get("place_redis_url")
+        if place_redis_url:
+            place_redis_pool = redis.BlockingConnectionPool.from_url(
+                place_redis_url,
+                max_connections=self.config.get("place_redis_max_connections", 1),
+                timeout=0.1,
+            )
+            self.baseplate.add_to_context("place_redis", RedisContextFactory(
+                place_redis_pool))
 
         ################# CASSANDRA
         keyspace = "reddit"
